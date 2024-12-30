@@ -42,4 +42,9 @@ func Initialized(app *fiber.App) {
 	customerServices := services.NewCustomerService(&customerRepositories, validation)
 	customerHandlers := handlers.NewCustomerHandler(&customerServices)
 	routes.CustomerRoute(app, customerHandlers)
+
+	addressRepositories := repositories.NewAddressRepositories(db)
+	addressService := services.NewAddressService(&addressRepositories, &customerRepositories, validation)
+	addressHandler := handlers.NewAddressHandler(&addressService)
+	routes.AddressRoute(app, addressHandler)
 }

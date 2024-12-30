@@ -8,7 +8,7 @@ import (
 )
 
 type AddressRepositories interface {
-	GetAddresses() ([]entities.Address, error)
+	GetAddresses(customerId string) ([]entities.Address, error)
 	GetAddressById(addressId uint) (*entities.Address, error)
 	AddAddress(address entities.Address) error
 	UpdateAddress(addressId uint, body dtos.AddressUpdateRequestDto) error
@@ -21,9 +21,9 @@ type AddressRepositoriesImpl struct {
 func NewAddressRepositories(db *gorm.DB) AddressRepositories {
 	return &AddressRepositoriesImpl{db: db}
 }
-func (r *AddressRepositoriesImpl) GetAddresses() ([]entities.Address, error) {
+func (r *AddressRepositoriesImpl) GetAddresses(customerId string) ([]entities.Address, error) {
 	var address []entities.Address
-	err := r.db.Find(&address).Error
+	err := r.db.Where("customer_id = ?", customerId).Find(&address).Error
 	return address, err
 }
 func (r *AddressRepositoriesImpl) GetAddressById(addressId uint) (*entities.Address, error) {
