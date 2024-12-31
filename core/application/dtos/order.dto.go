@@ -13,3 +13,11 @@ type OrderUpdateRequestDto struct {
 	OrderEmail      *string `json:"order_email" validate:"omitempty,email,min=1,max=100"`
 	OrderStatus     *string `json:"order_status" validate:"omitempty,min=1,max=12"`
 }
+type OrderDetailRequestDto struct {
+	OrderId     string `json:"order_id" validate:"required,min=1"`
+	ProductId   string `json:"product_id" validate:"required,min=1"`
+	Price       int64  `json:"price" validate:"required,min=1"`
+	Sku         string `json:"sku" validate:"required,min=1"`
+	Quantity    int    `json:"quantity" validate:"required,min=1"`
+	GrossAmount int64  `json:"gross_amount" validate:"required,min=1"`
+}
