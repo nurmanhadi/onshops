@@ -65,6 +65,9 @@ func (s *OrderServiceImpl) DeleteOrder(orderId string) error {
 	if count == 0 {
 		return &pkg.ErrNotFound{Message: "order not found"}
 	}
+	if err := s.orderRepository.DeleteOrder(orderId); err != nil {
+		return err
+	}
 	return nil
 }
 func (s *OrderServiceImpl) UpdateOrder(orderId string, body dtos.OrderUpdateRequestDto) error {
