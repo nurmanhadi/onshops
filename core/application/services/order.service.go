@@ -8,6 +8,7 @@ import (
 	"time"
 
 	"github.com/go-playground/validator/v10"
+	"github.com/google/uuid"
 )
 
 type OrderService interface {
@@ -43,7 +44,9 @@ func (s *OrderServiceImpl) AddOrder(body dtos.OrderRequestDto) error {
 	if err := s.validation.Struct(&body); err != nil {
 		return &pkg.ErrBadRequest{Message: err.Error()}
 	}
+	id := uuid.New().String()
 	order := entities.Order{
+		Id:              id,
 		CustomerId:      body.CustomerId,
 		ShippingAddress: body.ShippingAddress,
 		OrderAddress:    body.OrderAddress,

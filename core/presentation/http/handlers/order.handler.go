@@ -59,6 +59,9 @@ func (h *OrderHandlerImpl) GetOrderById(c *fiber.Ctx) error {
 }
 func (h *OrderHandlerImpl) AddOrder(c *fiber.Ctx) error {
 	body := new(dtos.OrderRequestDto)
+	if err := c.BodyParser(&body); err != nil {
+		return pkg.ErrRosponse(c, 400, "bad request", "cannot parse to json")
+	}
 	if err := h.orderService.AddOrder(*body); err != nil {
 		switch finalErr := err.(type) {
 		case *pkg.ErrBadRequest:
@@ -78,6 +81,9 @@ func (h *OrderHandlerImpl) AddOrder(c *fiber.Ctx) error {
 func (h *OrderHandlerImpl) UpdateOrder(c *fiber.Ctx) error {
 	orderId := c.Params("orderId")
 	body := new(dtos.OrderUpdateRequestDto)
+	if err := c.BodyParser(&body); err != nil {
+		return pkg.ErrRosponse(c, 400, "bad request", "cannot parse to json")
+	}
 	if err := h.orderService.UpdateOrder(orderId, *body); err != nil {
 		switch finalErr := err.(type) {
 		case *pkg.ErrBadRequest:
