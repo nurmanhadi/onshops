@@ -5,6 +5,7 @@ import (
 	"onshops/core/domain/repositories"
 	"onshops/core/infrastructure/database"
 	"onshops/core/infrastructure/database/migration"
+	"onshops/core/infrastructure/midtrans"
 	"onshops/core/presentation/http/handlers"
 	"onshops/core/presentation/http/routes"
 
@@ -13,6 +14,8 @@ import (
 )
 
 func Initialized(app *fiber.App) {
+	midtrans.SetupMidtrans()
+
 	db := database.ConnectionDB()
 	redis := database.RedisConnection()
 	migration.AutoMigration(db)
@@ -57,4 +60,9 @@ func Initialized(app *fiber.App) {
 	orderDetailService := services.NewOrderDetailsService(&orderDetailRepositories, &orderRepositories, validation)
 	orderDetailHandler := handlers.NewOrderDetailsHandler(&orderDetailService)
 	routes.OrderDetailsRoute(app, orderDetailHandler)
+
+	paymentRepositories := repositories.NewPaymentRepositories(db)
+	paymentService := services.NewPaymentService(&paymentRepositories, &productRepository, &orderRepositories, validation)
+	paymentHandler := handlers.NewPaymentHandler(&paymentService)
+	routes.PaymentRoute(app, paymentHandler)
 }

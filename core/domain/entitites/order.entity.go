@@ -14,5 +14,6 @@ type Order struct {
 	OrderDate       time.Time      `gorm:"type:date;not null" json:"order_date"`
 	OrderStatus     string         `gorm:"type:varchar(12);default:pending" json:"order_status"`
 	OrderDetails    []OrderDetails `gorm:"foreignKey:OrderId" json:"order_details"`
+	Payments        []Payment      `gorm:"foreignKey:OrderId" json:"payments"`
 	Customer        Customer       `gorm:"foreignKey:CustomerId" json:"customer"`
 }

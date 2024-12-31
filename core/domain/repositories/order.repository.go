@@ -29,7 +29,7 @@ func (r *OrderRepositoriesImpl) GetOrders(customerId string) ([]entities.Order, 
 }
 func (r *OrderRepositoriesImpl) GetOrderById(orderId string) (*entities.Order, error) {
 	var order *entities.Order
-	err := r.db.Where("id = ?", orderId).Find(&order).Error
+	err := r.db.Where("id = ?", orderId).Preload("OrderDetails.Product").Preload("Payments").First(&order).Error
 	return order, err
 }
 func (r *OrderRepositoriesImpl) AddOrder(order entities.Order) error {

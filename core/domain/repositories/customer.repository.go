@@ -31,7 +31,7 @@ func (r *CustomerRepositoriesImpl) UpdateCustomer(customerId string, body dtos.C
 }
 func (r *CustomerRepositoriesImpl) GetCustomerById(customerId string) (*entities.Customer, error) {
 	var customer *entities.Customer
-	err := r.db.Where("id = ?", customerId).First(&customer).Error
+	err := r.db.Where("id = ?", customerId).Preload("Address").Preload("Orders").First(&customer).Error
 	return customer, err
 }
 func (r *CustomerRepositoriesImpl) CountCustomerById(customerId string) (int64, error) {

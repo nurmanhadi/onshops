@@ -15,5 +15,6 @@ func AutoMigration(db *gorm.DB) {
 		&entities.Customer{},
 		&entities.Order{},
 		&entities.OrderDetails{},
+		&entities.Payment{},
 	)
 }

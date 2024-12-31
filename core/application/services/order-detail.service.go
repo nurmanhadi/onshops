@@ -32,14 +32,13 @@ func (s *OrderDetailsServiceImpl) AddOrderDetail(body dtos.OrderDetailRequestDto
 		Price:       body.Price,
 		Sku:         body.Sku,
 		Quantity:    body.Quantity,
-		GrossAmount: body.Price * int64(body.Quantity),
+		GrossAmount: body.GrossAmount,
 	}
 	if err := s.orderDetailsRepository.AddOrderDetails(orderDetails); err != nil {
 		return err
 	}
-	amount := body.Price * int64(body.Quantity)
 	updateAmount := dtos.OrderUpdateRequestDto{
-		Amount: &amount,
+		Amount: &body.GrossAmount,
 	}
 	if err := s.orderRepository.UpdateOrder(body.OrderId, updateAmount); err != nil {
 		return err
