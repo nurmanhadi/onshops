@@ -6,8 +6,8 @@ import (
 
 type Order struct {
 	Id              string         `gorm:"primaryKey;type:varchar(36)" json:"id"`
-	CustomerId      string         `gorm:"type:uuid;not null" json:"customer_id"`
-	Amount          int64          `gorm:"not null" json:"amount"`
+	CustomerId      string         `gorm:"type:varchar(36);not null" json:"customer_id"`
+	Amount          int64          `json:"amount"`
 	ShippingAddress string         `gorm:"type:text;not null" json:"shipping_address"`
 	OrderAddress    string         `gorm:"type:text;not null" json:"order_address"`
 	OrderEmail      string         `gorm:"type:varchar(100);not null" json:"order_email"`

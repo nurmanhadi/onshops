@@ -1,6 +1,7 @@
 package main
 
 import (
+	"log"
 	"onshops/config"
 
 	"github.com/gofiber/fiber/v2"
@@ -13,5 +14,8 @@ func main() {
 	app := fiber.New()
 	app.Use(logger.New())
 	config.Initialized(app)
-	app.Listen(":3000")
+
+	if err := app.Listen(":5000"); err != nil {
+		log.Fatalf("%s", err.Error())
+	}
 }

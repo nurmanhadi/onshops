@@ -12,7 +12,7 @@ type Address struct {
 	Street        string    `gorm:"type:varchar(255);not null" json:"street"`
 	City          string    `gorm:"type:varchar(50);not null" json:"city"`
 	State         string    `gorm:"type:varchar(50);not null" json:"state"`
-	PrtalCode     string    `gorm:"type:varchar(20);not null" json:"prtal_code"`
+	PortalCode    string    `gorm:"type:varchar(20);not null" json:"portal_code"`
 	Country       string    `gorm:"type:varchar(50);not null" json:"country"`
 	CreatedAt     time.Time `gorm:"autoCreateTime" json:"created_at"`
 	UpdatedAt     time.Time `gorm:"autoUpdateTime" json:"updated_at"`

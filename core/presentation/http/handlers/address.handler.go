@@ -124,7 +124,7 @@ func (h *AddressHandlerImpl) DeleteAddress(c *fiber.Ctx) error {
 	}
 	return c.Status(200).JSON(fiber.Map{
 		"status":  "success",
-		"message": "get address success",
+		"message": "delete address success",
 		"links": fiber.Map{
 			"self": c.OriginalURL(),
 		},

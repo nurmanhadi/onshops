@@ -60,7 +60,7 @@ func (s *AddressServiceImpl) AddAddress(customerId string, body dtos.AddressAddR
 		Street:        body.Street,
 		City:          body.City,
 		State:         body.State,
-		PrtalCode:     body.PrtalCode,
+		PortalCode:    body.PortalCode,
 		Country:       body.Country,
 	}
 	if err := s.addressRepository.AddAddress(address); err != nil {
